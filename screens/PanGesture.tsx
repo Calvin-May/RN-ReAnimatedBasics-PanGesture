@@ -2,12 +2,7 @@ import { View, StyleSheet } from 'react-native';
 
 import { Card, Cards } from '../components';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-
+// Nearly interchangeable from type api
 interface GestureProps {
   width: number;
   height: number;
@@ -21,3 +16,9 @@ export const PanGesture = ({ width, height }: GestureProps) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
