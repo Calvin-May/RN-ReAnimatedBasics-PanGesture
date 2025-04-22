@@ -1,6 +1,11 @@
 import { View, StyleSheet } from 'react-native';
-
 import { Card, Cards } from '../components';
+import { PanGestureHandler } from 'react-native-gesture-handler';
+import Animated, {
+  useAnimatedGestureHandler,
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated';
 
 // Nearly interchangeable from type api
 interface GestureProps {
@@ -9,10 +14,32 @@ interface GestureProps {
 }
 
 export const PanGesture = ({ width, height }: GestureProps) => {
-  //console.log({ width, height });
+  console.log({ width, height });
+  const translateX = useSharedValue(0);
+  const translateY = useSharedValue(0);
+  const onGestureEvent = useAnimatedGestureHandler({
+    onActive: (event, ctx) => {
+      translateX.value = event.translationX;
+      translateY.value = event.translationY;
+    },
+  });
+
+  const style = useAnimatedStyle(() => {
+    return {
+      transform: [
+        { translateX: translateX.value },
+        { translateY: translateY.value },
+      ],
+    };
+  });
+
   return (
     <View style={styles.container}>
-      <Card card={Cards.Card1} />
+      <PanGestureHandler onGestureEvent={onGestureEvent}>
+        <Animated.View style={style}>
+          <Card card={Cards.Card1} />
+        </Animated.View>
+      </PanGestureHandler>
     </View>
   );
 };

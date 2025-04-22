@@ -19,7 +19,6 @@ export default function App() {
           // nativeEvent: { layout: { width: number, height: number, x: number, y: number } }
           //-In this case we only care about width/height which will be passed as props to
           //-the PanGesture Component
-          console.log(layout);
           setContainer(layout);
         }}
       >
